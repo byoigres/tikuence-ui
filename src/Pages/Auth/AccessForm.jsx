@@ -25,8 +25,9 @@ const StyledPaper = styled(Paper, {
 
 const StyledButtonsContainer = styled('div')(({ theme }) => ({}));
 
-const LoginPage = ({ isSignIn, isMobile = true}) => (
-  <>
+const LoginPage = ({ isSignIn, isMobile = true }) => {
+  const [isButtonLoading, setIsButtonLoading] = React.useState(false);
+  return (
     <Container maxWidth="sm" disableGutters={isMobile}>
       <StyledPaper elevation={1}>
         <Typography variant="h4" component="h1" color="primary" gutterBottom>
@@ -42,9 +43,15 @@ const LoginPage = ({ isSignIn, isMobile = true}) => (
             variant="contained"
             color="secondary"
             fullWidth
+            disabled={isButtonLoading}
             startIcon={<GoogleIcon />}
             style={{ backgroundColor: '#E04A32', color: 'white' }}
             href="/auth/google"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsButtonLoading(true);
+              window.location.href = '/auth/google';
+            }}
           >
             {isSignIn ? 'Continue' : 'Sign up'} with Google
           </Button>
@@ -67,8 +74,8 @@ const LoginPage = ({ isSignIn, isMobile = true}) => (
         </Typography>
       </StyledPaper>
     </Container>
-  </>
-);
+  );
+}
 
 LoginPage.layout = (page) => <MainLayout children={page} />;
 

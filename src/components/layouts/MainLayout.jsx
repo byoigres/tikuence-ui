@@ -3,6 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { usePage } from "@inertiajs/react";
 import Navbar from "../Navbar";
 import Navigation from "../Navbar/Navigation";
+import { Container } from "@mui/material";
 
 const MainLayout = ({ children }) => {
   const {
@@ -16,14 +17,15 @@ const MainLayout = ({ children }) => {
       <Navigation>
         <Navbar isAuthenticated={isAuthenticated} profile={profile} />
       </Navigation>
-      <h1>Hello from MainLayout component!</h1>
-      {React.Children.map(children, (child) => {
-        if (!React.isValidElement(child)) {
-          return null;
-        }
+      <Container sx={{ marginTop: 10 }}>
+        {React.Children.map(children, (child) => {
+          if (!React.isValidElement(child)) {
+            return null;
+          }
 
-        return React.cloneElement(child);
-      })}
+          return React.cloneElement(child);
+        })}
+      </Container>
     </>
   );
 };
