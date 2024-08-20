@@ -9,7 +9,7 @@ module.exports = merge(common, {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        vendors: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
           chunks: "all",
@@ -17,19 +17,4 @@ module.exports = merge(common, {
       },
     },
   },
-  // optimization: {
-  //   runtimeChunk: {
-  //     name: (entrypoint) => `runtime~${entrypoint.name}`,
-  //   },
-  //   runtimeChunk: 'single',
-  //   splitChunks: {
-  //       cacheGroups: {
-  //           vendors: {
-  //               test: /[\\\/]node_modules[\\\/]/,
-  //               name: 'vendors',
-  //               chunks: 'all'
-  //           }
-  //       }
-  //   }
-  // },
 });
