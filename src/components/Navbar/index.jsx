@@ -77,14 +77,14 @@ const NavBar = ({ isAuthenticated, profile }) => {
           <MenuItem
             key="menu-item-auth-login"
             component={InertiaLink}
-            href="/auth/login"
+            href="/auth/signin"
           >
             Sing in
           </MenuItem>,
           <MenuItem
             key="menu-item-auth-register"
             component={InertiaLink}
-            href="/auth/register"
+            href="/auth/signup"
           >
             <Typography color="secondary">Create account</Typography>
           </MenuItem>

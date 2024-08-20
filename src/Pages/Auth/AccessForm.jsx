@@ -25,15 +25,15 @@ const StyledPaper = styled(Paper, {
 
 const StyledButtonsContainer = styled('div')(({ theme }) => ({}));
 
-const LoginPage = ({ isLogin, isMobile = true}) => (
+const LoginPage = ({ isSignIn, isMobile = true}) => (
   <>
     <Container maxWidth="sm" disableGutters={isMobile}>
       <StyledPaper elevation={1}>
         <Typography variant="h4" component="h1" color="primary" gutterBottom>
-          {`${isLogin ? 'Welcome back 😄' : 'Hello user 👋'}`}
+          {`${isSignIn ? 'Welcome back 😄' : 'Hello user 👋'}`}
         </Typography>
         <Typography variant="subtitle2" gutterBottom>
-          {isLogin
+          {isSignIn
             ? 'Log in to continue using all the features of your account.'
             : `You can create an account using one of the following social providers.`}
         </Typography>
@@ -46,10 +46,10 @@ const LoginPage = ({ isLogin, isMobile = true}) => (
             style={{ backgroundColor: '#E04A32', color: 'white' }}
             href="/auth/google"
           >
-            {isLogin ? 'Continue' : 'Sign up'} with Google
+            {isSignIn ? 'Continue' : 'Sign up'} with Google
           </Button>
         </StyledButtonsContainer>
-        {!isLogin && (
+        {!isSignIn && (
           <Typography variant="body2">
             {`You will be asked to accept the `}
             <InertiaLink href="/policies/terms">terms of service</InertiaLink>
@@ -60,9 +60,9 @@ const LoginPage = ({ isLogin, isMobile = true}) => (
         )}
         <Divider flexItem style={{ height: 1, marginTop: '1rem', marginBottom: '1rem' }} />
         <Typography>
-          {`${isLogin ? `Don't` : 'Already'} have an account? `}
-          <InertiaLink href={`/auth/${isLogin ? 'register' : 'login'}`}>
-            {isLogin ? 'Sing Up' : 'Login'}
+          {`${isSignIn ? `Don't` : 'Already'} have an account? `}
+          <InertiaLink href={`/auth/${isSignIn ? 'signup' : 'signin'}`}>
+            {isSignIn ? 'Sign Up' : 'Sign In'}
           </InertiaLink>
         </Typography>
       </StyledPaper>
