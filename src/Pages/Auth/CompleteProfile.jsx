@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -11,8 +11,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import MainLayout from "../../components/layouts/MainLayout";
-import { router, useForm ,Link as InertiaLink } from "@inertiajs/react";
+import { useForm, Link as InertiaLink } from "@inertiajs/react";
 import { styled } from '@mui/material/styles';
+import InputHelpAdornment from "../../components/InputHelpAdornment";
 
 const StyledForm = styled('form')(() => ({
   '& .MuiFormControl-root, & .MuiButton-root': {
@@ -30,8 +31,8 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
     terms: false,
     token,
   });
-
-  console.log({ processing, errors });
+  const nameRef = useRef(null);
+  const usernameRef = useRef(null);
 
   function handleInputChange(e) {
     const key = e.target.name;
@@ -44,22 +45,15 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
   }
 
   const register = () => {
-    post('/auth/complete-profile');
-    // Inertia.post('/auth/register', values, {
-    //   onStart() {
-    //     setIsLoading(true);
-    //   },
-    //   onError(err) {
-    //     if (err.name && nameRef.current) {
-    //       nameRef.current.focus();
-    //     } else if (err.username && usernameRef.current) {
-    //       usernameRef.current.focus();
-    //     }
-    //   },
-    //   onFinish() {
-    //     setIsLoading(false);
-    //   },
-    // });
+    post('/auth/complete-profile', {
+      onError(errors) {
+        if (errors.name) {
+          nameRef.current.focus();
+        } else if (errors.username) {
+          usernameRef.current.focus();
+        }
+      }
+    });
   };
 
   return (
@@ -97,6 +91,15 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               value={data.name}
               error={errors.name !== undefined}
               helperText={errors.name}
+              disabled={processing}
+              InputProps={{
+                maxLength: 50,
+                autoComplete: 'off',
+                ref: nameRef,
+                endAdornment: (
+                  <InputHelpAdornment title="This is the name that will appears in your profile." />
+                )
+              }}
               autoComplete="off"
               onChange={handleInputChange}
               fullWidth
@@ -109,6 +112,15 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               value={data.username}
               error={errors.username !== undefined}
               helperText={errors.username}
+              disabled={processing}
+              InputProps={{
+                maxLength: 24,
+                autoComplete: 'off',
+                ref: usernameRef,
+                endAdornment: (
+                  <InputHelpAdornment title="This is a unique identifier for your account, this will be part of your profile URL." />
+                ),
+              }}
               autoComplete="off"
               onChange={handleInputChange}
               fullWidth
@@ -121,6 +133,7 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               value={data.bio}
               error={errors.bio !== undefined}
               helperText={errors.bio}
+              disabled={processing}
               autoComplete="off"
               multiline
               rows={4}
@@ -135,6 +148,7 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               value={data.tiktokUsername}
               error={errors["tiktok-username"] !== undefined}
               helperText={errors["tiktok-username"]}
+              disabled={processing}
               autoComplete="off"
               onChange={handleInputChange}
               onKeyPress={(e) => {
@@ -153,6 +167,7 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
                       name="terms"
                       checked={data.terms}
                       value={data.terms}
+                      disabled={processing}
                       onChange={handleInputChange}
                       color="primary"
                     />
@@ -177,7 +192,7 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
             <Button
               variant="contained"
               color="primary"
-              disabled={!data.terms}
+              disabled={!data.terms || processing}
               onClick={register}
               fullWidth
             >
