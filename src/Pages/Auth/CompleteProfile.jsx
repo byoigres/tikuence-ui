@@ -6,11 +6,12 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import MainLayout from "../../components/layouts/MainLayout";
-import { Link as InertiaLink } from "@inertiajs/react";
+import { router, useForm ,Link as InertiaLink } from "@inertiajs/react";
 import { styled } from '@mui/material/styles';
 
 const StyledForm = styled('form')(() => ({
@@ -21,7 +22,7 @@ const StyledForm = styled('form')(() => ({
 }));
 
 const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false }) => {
-  const [values, setValues] = useState({
+  const { data, setData, post, processing, errors } = useForm({
     name,
     username: '',
     bio: '',
@@ -30,15 +31,36 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
     token,
   });
 
+  console.log({ processing, errors });
+
   function handleInputChange(e) {
     const key = e.target.name;
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
 
-    setValues((v) => ({
+    setData((v) => ({
       ...v,
       [key]: value,
     }));
   }
+
+  const register = () => {
+    post('/auth/complete-profile');
+    // Inertia.post('/auth/register', values, {
+    //   onStart() {
+    //     setIsLoading(true);
+    //   },
+    //   onError(err) {
+    //     if (err.name && nameRef.current) {
+    //       nameRef.current.focus();
+    //     } else if (err.username && usernameRef.current) {
+    //       usernameRef.current.focus();
+    //     }
+    //   },
+    //   onFinish() {
+    //     setIsLoading(false);
+    //   },
+    // });
+  };
 
   return (
     <Container maxWidth="sm">
@@ -72,7 +94,9 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
             <TextField
               name="name"
               label="Name"
-              value={values.name}
+              value={data.name}
+              error={errors.name !== undefined}
+              helperText={errors.name}
               autoComplete="off"
               onChange={handleInputChange}
               fullWidth
@@ -82,7 +106,9 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
             <TextField
               name="username"
               label="Username"
-              value={values.username}
+              value={data.username}
+              error={errors.username !== undefined}
+              helperText={errors.username}
               autoComplete="off"
               onChange={handleInputChange}
               fullWidth
@@ -92,7 +118,9 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               name="bio"
               label="Bio"
               placeholder="Write a little bit of yourself (optional)"
-              value={values.bio}
+              value={data.bio}
+              error={errors.bio !== undefined}
+              helperText={errors.bio}
               autoComplete="off"
               multiline
               rows={4}
@@ -104,7 +132,9 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
               name="tiktokUsername"
               label="TikTok username"
               placeholder="(Optional)"
-              value={values.tiktokUsername}
+              value={data.tiktokUsername}
+              error={errors["tiktok-username"] !== undefined}
+              helperText={errors["tiktok-username"]}
               autoComplete="off"
               onChange={handleInputChange}
               onKeyPress={(e) => {
@@ -121,8 +151,8 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
                   control={
                     <Checkbox
                       name="terms"
-                      checked={values.terms}
-                      value={values.terms}
+                      checked={data.terms}
+                      value={data.terms}
                       onChange={handleInputChange}
                       color="primary"
                     />
@@ -142,11 +172,13 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
                   }
                 />
               </FormGroup>
+              {errors.terms && <FormHelperText>{errors.terms}</FormHelperText>}
             </FormControl>
             <Button
               variant="contained"
               color="primary"
-              disabled={!values.terms}
+              disabled={!data.terms}
+              onClick={register}
               fullWidth
             >
               Complete profile
