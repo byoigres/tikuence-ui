@@ -13,6 +13,10 @@ import { styled } from "@mui/material/styles";
 import Logo from "./Logo";
 import UserAvatar from "./UserAvatar";
 
+const StyledNav = styled("nav")(({ theme }) => ({
+  display: "flex",
+}));
+
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "none",
@@ -30,7 +34,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
   };
 
   return (
-    <>
+    <StyledNav>
       <StyledAppBar position="fixed">
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start">
@@ -90,7 +94,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
           </MenuItem>
         ]}
       </Menu>
-    </>
+    </StyledNav>
   );
 };
 
