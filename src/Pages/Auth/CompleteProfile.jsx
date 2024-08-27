@@ -29,7 +29,6 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
     bio: '',
     tiktokUsername: '',
     terms: false,
-    token,
   });
   const nameRef = useRef(null);
   const usernameRef = useRef(null);
@@ -45,7 +44,7 @@ const LoginPage = ({ email, name, token, isInvalid = false, isExpired = false })
   }
 
   const register = () => {
-    post('/auth/complete-profile', {
+    post(`/auth/complete-profile?token=${token}`, {
       onError(errors) {
         if (errors.name) {
           nameRef.current.focus();

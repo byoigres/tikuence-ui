@@ -37,7 +37,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
             <MenuIcon />
           </IconButton>
           <Logo size={"small"} disableGutters sx={{ flexGrow: 1 }} />
-          <Tooltip title={isAuthenticated ? profile.displayName : "Login"}>
+          <Tooltip title={isAuthenticated ? profile.name : "Login"}>
             <IconButton
               edge="end"
               color="inherit"
@@ -46,7 +46,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
               onClick={handleUserMenuClick}
             >
               {isAuthenticated ? (
-                <UserAvatar name={profile.displayName} />
+                <UserAvatar name={profile.name} />
               ) : (
               <AccountCircleIcon />
               )}
@@ -65,7 +65,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
             key="menu-item-user-profile"
             onClick={handleUserMenuClose}
             component={InertiaLink}
-            href={`/users/${profile.displayName}`}
+            href={`/users/${profile.name}`}
           >
             My Profile
           </MenuItem>,
