@@ -54,7 +54,7 @@ const DrawerMenu = ({ open, onClose, isAuthenticated, credentials }) => {
       PaperProps={{
         sx: sx.drawerPaper,
       }}
-      onClose={() => { }}
+      onClose={onClose}
       ModalProps={{
         keepMounted: true,
       }}

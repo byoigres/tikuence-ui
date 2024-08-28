@@ -24,7 +24,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   },
 }));
 
-const NavBar = ({ isAuthenticated, profile }) => {
+const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleUserMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,7 +37,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
     <StyledNav>
       <StyledAppBar position="fixed">
         <Toolbar>
-          <IconButton color="inherit" aria-label="open drawer" edge="start">
+          <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle}>
             <MenuIcon />
           </IconButton>
           <Logo size={"small"} disableGutters sx={{ flexGrow: 1 }} />
