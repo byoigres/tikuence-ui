@@ -1,3 +1,12 @@
+import React from 'react';
 import Navbar from './Navbar';
+import DrawerMenu from './DrawerMenu';
 
-export default Navbar;
+const Navigation = ({ isAuthenticated, profile }) => (
+  <>
+    <Navbar isAuthenticated={isAuthenticated} profile={profile} />
+    <DrawerMenu />
+  </>
+);
+
+export default Navigation;

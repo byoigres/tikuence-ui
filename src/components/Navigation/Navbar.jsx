@@ -50,7 +50,7 @@ const NavBar = ({ isAuthenticated, profile }) => {
               onClick={handleUserMenuClick}
             >
               {isAuthenticated ? (
-                <UserAvatar name={profile.name} />
+                <UserAvatar letter={profile.name[0]} />
               ) : (
               <AccountCircleIcon />
               )}

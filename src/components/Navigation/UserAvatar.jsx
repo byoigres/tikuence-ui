@@ -8,13 +8,12 @@ const StyledAvatar = styled(Avatar)(({ theme, size }) => ({
 }));
 
 
-const UserAvatar = ({ name, size = 'default' }) => {
+const UserAvatar = ({ letter, size = 'default' }) => {
   return(
     <StyledAvatar
-      alt={name}
       size={size}
     >
-      {name[0].toUpperCase()}
+      {letter.toUpperCase()}
     </StyledAvatar>
   );
 };
