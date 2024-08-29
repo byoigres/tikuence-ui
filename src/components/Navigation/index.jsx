@@ -12,7 +12,7 @@ const Navigation = ({ isAuthenticated, profile }) => {
   return (
     <>
       <Navbar isAuthenticated={isAuthenticated} profile={profile} handleDrawerToggle={handleDrawerToggle} />
-      <DrawerMenu open={isDrawerOpen} onClose={() => { setIsDrawerOpen(false); }} />
+      <DrawerMenu open={isDrawerOpen} isAuthenticated={isAuthenticated} profile={profile} onClose={() => { setIsDrawerOpen(false); }} />
     </>
   );
 }

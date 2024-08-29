@@ -2,6 +2,7 @@ import React from 'react';
 // import { makeStyles } from '@material-ui/core/styles';
 import { Link as InertiaLink } from '@inertiajs/react';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import UserAvatar from './UserAvatar';
 
 // const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,18 @@ import UserAvatar from './UserAvatar';
 //     fontWeight: 600,
 //   },
 // }));
+
+const sx = {
+  container: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  detailsWrapper: (theme) => ({
+    marginLeft: theme.spacing(1),
+  }),
+}
 
 const UserCard = ({
   variant = 'transparent',
@@ -94,18 +107,17 @@ const UserCard = ({
   }
 
   const content = (
-    <div
-      className={`${classes.container} ${isTransparent ? wrapperClassName : ''}`}
-      data-name="container"
+    <Box
+      sx={sx.container}
     >
-      <div className={classes.pictureWrapper} data-name="avatar">
+      <Box data-name="avatar">
         {picture}
-      </div>
-      <div className={classes.detailsWrapper} data-name="user-container">
-        <div className={classes.nameWrapper}>{name}</div>
-        <div className={classes.usernameWrapper}>{username}</div>
-      </div>
-    </div>
+      </Box>
+      <Box sx={sx.detailsWrapper} data-name="user-container">
+        <Box sx={sx.nameWrapper}>{name}</Box>
+        <Box sx={sx.usernameWrapper}>{username}</Box>
+      </Box>
+    </Box>
   );
 
   if (isTransparent) {

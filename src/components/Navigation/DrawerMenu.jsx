@@ -2,40 +2,34 @@ import React, { useEffect } from 'react';
 import { Link as InertiaLink } from '@inertiajs/react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 // Icons
 import HomeIcon from '@mui/icons-material/Home';
+import AddIcon from '@mui/icons-material/Add';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 // Project imports
-import UserCard from './UserCard';
+import Logo from './Logo';
+import DrawerItemButton from './DrawerItemButton';
+import DrawerDivider from './DrawerDivider';
 
 const sx = {
   drawerPaper: (theme) => ({
     width: theme.spacing(30),
-  })
+  }),
 };
 
-const DrawerMenu = ({ open, onClose, isAuthenticated, credentials }) => {
+const DrawerMenu = ({ open, onClose, isAuthenticated, profile }) => {
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.up('md'));
   useEffect(() => { }, [open]);
-
-  const userCard = credentials ? (
-    <UserCard
-      variant="contained"
-      nameText={credentials.name}
-      usernameText={`${credentials.username}`}
-      pictureUrl={credentials.picture}
-      onClick={() => {
-        onClose();
-      }}
-    />
-  ) : null;
 
   return (
     <Drawer
@@ -50,11 +44,25 @@ const DrawerMenu = ({ open, onClose, isAuthenticated, credentials }) => {
         keepMounted: true,
       }}
     >
-      <List>
-        <ListItem key="home" disablePadding>
+      {match && (
+          <Logo />
+      )}
+      <DrawerDivider />
+      {isAuthenticated && (
+        <DrawerItemButton
+          icon={<AddIcon />}
+          text="Create new list"
+          href="/list/add"
+        />
+      )}
+
+      <DrawerDivider />
+      <List sx={{ display: 'initial-flex', flexGrow: 1 }}>
+        <ListItem key="home" disablePadding alignItems='flex-start'>
           <ListItemButton
             LinkComponent={InertiaLink}
             href="/"
+            color="secondary"
           >
             <ListItemIcon>
               <HomeIcon sx={{ color: theme.palette.primary.main }} />
@@ -63,7 +71,55 @@ const DrawerMenu = ({ open, onClose, isAuthenticated, credentials }) => {
           </ListItemButton>
         </ListItem>
       </List>
-      <Divider />
+      {!isAuthenticated && (
+        <>
+          <DrawerDivider />
+          <DrawerItemButton
+            color="primary"
+            variant="outlined"
+            text="Sign in"
+            href="/auth/signin"
+          />
+          <DrawerItemButton
+            color="secondary"
+            variant="contained"
+            text="Create new account"
+            href="/auth/signup"
+          />
+        </>
+      )}
+      {isAuthenticated && match && (
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemAvatar>
+                <Avatar alt="Remy Sharp" src={profile.picture} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={(
+                  <Typography>{profile.name}</Typography>
+                )}
+                secondary={
+                  <Typography
+                    component="span"
+                    variant="caption"
+                  >
+                    {`@${profile.username}`}
+                  </Typography>
+                }
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key="logout" disablePadding>
+            <ListItemButton component={InertiaLink} href="/auth/logout">
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      )}
     </Drawer>
   );
 }

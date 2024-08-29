@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 
+// TODO: Refactor this component to use the `sx` prop instead of `styled`
 const StyledTypography = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'size' && prop !== 'disableGutters',
 })(({ theme, size, disableGutters }) => ({
@@ -16,16 +17,19 @@ const StyledTypography = styled(Typography, {
   margin: theme.spacing(disableGutters ? 0 : 1),
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.common.white,
-}));
+const sx = {
+  link: (theme) => ({
+    color: theme.palette.common.white,
+  }),
+}
 
-const Logo = ({ size = 'default', disableGutters = false, sx={} }) => {
+
+const Logo = ({ size = 'default', disableGutters = false, sx: typographySX = {} }) => {
   return (
-    <StyledTypography size={size} disableGutters={disableGutters} sx={sx}>
-      <StyledLink href="/" component={InertiaLink}>
+    <StyledTypography size={size} disableGutters={disableGutters} sx={typographySX}>
+      <Link href="/" component={InertiaLink} sx={sx.link}>
         TiKUENCE
-      </StyledLink>
+      </Link>
     </StyledTypography>
   );
 };

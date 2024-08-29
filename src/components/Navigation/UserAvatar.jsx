@@ -7,10 +7,10 @@ const StyledAvatar = styled(Avatar)(({ theme, size }) => ({
   height: theme.spacing(size === 'default' ? 5 : 3),
 }));
 
-
-const UserAvatar = ({ letter, size = 'default' }) => {
+const UserAvatar = ({ image, letter, size = 'default' }) => {
   return(
     <StyledAvatar
+      src={image}
       size={size}
     >
       {letter.toUpperCase()}

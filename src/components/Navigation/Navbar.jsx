@@ -6,23 +6,24 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Link as InertiaLink } from "@inertiajs/react";
-import { styled } from "@mui/material/styles";
 import Logo from "./Logo";
 import UserAvatar from "./UserAvatar";
 
-const StyledNav = styled("nav")(({ theme }) => ({
-  display: "flex",
-}));
-
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    display: "none",
-    zIndex: 1201,
+const sx = {
+  nav: {
+    display: "flex",
   },
-}));
+  appBar: (theme) => ({
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+      zIndex: 1201,
+    },
+  }),
+}
 
 const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,8 +35,8 @@ const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
   };
 
   return (
-    <StyledNav>
-      <StyledAppBar position="fixed">
+    <Box component="nav" sx={sx.nav}>
+      <AppBar position="fixed" sx={sx.appBar}>
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle}>
             <MenuIcon />
@@ -50,14 +51,14 @@ const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
               onClick={handleUserMenuClick}
             >
               {isAuthenticated ? (
-                <UserAvatar letter={profile.name[0]} />
+                <UserAvatar image={profile.picture} letter={profile.name[0]} size="small" />
               ) : (
               <AccountCircleIcon />
               )}
             </IconButton>
           </Tooltip>
         </Toolbar>
-      </StyledAppBar>
+      </AppBar>
       <Menu
         anchorEl={anchorEl}
         keepMounted
@@ -94,7 +95,7 @@ const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
           </MenuItem>
         ]}
       </Menu>
-    </StyledNav>
+    </Box>
   );
 };
 
