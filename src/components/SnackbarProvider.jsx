@@ -45,7 +45,11 @@ const SnackBarProvider = ({ children, flash }) => {
       action={(key) => (
         <Button
           sx={{ color: 'white' }}
-          onClick={() => notistackRef.current.closeSnackbar(key)}
+          onClick={() => {
+            if (notistackRef.current) {
+              notistackRef.current.closeSnackbar(key)
+            }
+          }}
         >
           Dismiss
         </Button>
