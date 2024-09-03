@@ -12,17 +12,23 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import MultiSelect from "../../components/MultiSelect";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Add = () => {
+  const {
+    props: {
+      modal: {
+        categories,
+      }
+    }
+  } = usePage();
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    console.log('close');
     setIsOpen(false);
   };
 
@@ -30,9 +36,6 @@ const Add = () => {
     <Dialog
       open={isOpen}
       maxWidth="sm"
-      onClose={() => {
-        console.log('onClose');
-      }}
       fullWidth
       TransitionComponent={Transition}
       onTransitionExited={() => {
@@ -66,18 +69,10 @@ const Add = () => {
           label="List name"
           autoFocus
           fullWidth
-          // margin="dense"
           variant="standard"
           inputProps={{
             maxLength: 150,
-            // ref: listNameRef,
           }}
-          // disabled={isLoading}
-          // value={title}
-          // onChange={handleChange}
-          // onKeyPress={handleOnKeyPress}
-          // error={errors.title !== undefined}
-          // helperText={errors.title}
         />
         <DialogContentText>
           <Typography variant="caption">Choose a useful name for the list</Typography>
@@ -86,7 +81,7 @@ const Add = () => {
           label="Categories"
           placeholder="Type a category name"
           maxSelected={3}
-          options={[]}
+          options={categories}
           labelPropertyName="description"
         />
         <DialogContentText>
