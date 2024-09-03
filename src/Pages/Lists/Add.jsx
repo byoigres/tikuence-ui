@@ -23,6 +23,7 @@ const Add = () => {
     props: {
       modal: {
         categories,
+        languages
       }
     }
   } = usePage();
@@ -56,7 +57,7 @@ const Add = () => {
             <CloseIcon />
           </IconButton>
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            Sound
+            Add new list
           </Typography>
           <Button autoFocus color="inherit">
             save
@@ -93,7 +94,7 @@ const Add = () => {
           label="Languages (optional)"
           placeholder="Type a language name"
           maxSelected={2}
-          options={[]}
+          options={languages}
           labelPropertyName="name"
         />
         <DialogContentText>
