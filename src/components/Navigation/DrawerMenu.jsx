@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link as InertiaLink } from '@inertiajs/react';
+import { Link as InertiaLink, router } from '@inertiajs/react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
@@ -52,7 +52,16 @@ const DrawerMenu = ({ open, onClose, isAuthenticated, profile }) => {
         <DrawerItemButton
           icon={<AddIcon />}
           text="Create new list"
-          href="/list/add"
+          href="/lists/add"
+          onClick={(e) => {
+            e.preventDefault();
+            router.visit('/lists/add', {
+              method: 'get',
+              preserveState: true,
+              preserveScroll: true,
+              only: ['auth', 'flash', 'errors', 'referer', 'modal'],
+            });
+          }}
         />
       )}
 

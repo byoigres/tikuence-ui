@@ -4,8 +4,9 @@ import { usePage } from "@inertiajs/react";
 import Navigation from "../Navigation";
 import { Container } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import GlobalStyles from '@mui/material/GlobalStyles';
 import SnackbarProvider from "../SnackbarProvider";
+import InertiaModals from "../InertiaModals";
+import GlobalStyles from '@mui/material/GlobalStyles';
 
 const theme = createTheme({
 });
@@ -47,6 +48,7 @@ const MainLayout = ({ children }) => {
     props: {
       auth: { isAuthenticated, profile },
       flash,
+      modal = false
     },
   } = usePage();
   return (
@@ -64,6 +66,7 @@ const MainLayout = ({ children }) => {
 
               return React.cloneElement(child);
             })}
+            <InertiaModals modal={modal} />
           </Container>
         </SnackbarProvider>
       </ThemeProvider>
