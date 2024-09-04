@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import MultiSelect from "../../components/MultiSelect";
-import { router, usePage } from "@inertiajs/react";
+import { router, usePage, useForm } from "@inertiajs/react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,9 +28,29 @@ const Add = () => {
     }
   } = usePage();
   const [isOpen, setIsOpen] = useState(true);
+  const { data, setData, post, processing, errors } = useForm({
+    title: '',
+    categories: [],
+  });
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  function handleInputChange(e) {
+    setData((v) => ({
+      ...v,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    post('/lists', {
+      preserveState: true,
+      only: ['flash', 'errors'],
+    });
   };
 
   return (
@@ -59,13 +79,14 @@ const Add = () => {
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
             Add new list
           </Typography>
-          <Button autoFocus color="inherit">
+          <Button autoFocus color="inherit" onClick={handleCreate}>
             save
           </Button>
         </Toolbar>
       </AppBar>
       <DialogContent>
         <TextField
+          name="title"
           placeholder="Enter the name of the list"
           label="List name"
           autoFocus
@@ -74,6 +95,11 @@ const Add = () => {
           inputProps={{
             maxLength: 150,
           }}
+          onChange={handleInputChange}
+          disabled={processing}
+          value={data.title}
+          error={!!errors.title}
+          helperText={errors.title}
         />
         <DialogContentText>
           <Typography variant="caption">Choose a useful name for the list</Typography>
@@ -84,6 +110,14 @@ const Add = () => {
           maxSelected={3}
           options={categories}
           labelPropertyName="description"
+          error={!!errors.categories}
+          helperText={errors.categories}
+          onValueChage={(values) => {
+            setData((v) => ({
+              ...v,
+              "categories": values.map((x) => x.name),
+            }));
+          }}
         />
         <DialogContentText>
           <Typography variant="caption">
