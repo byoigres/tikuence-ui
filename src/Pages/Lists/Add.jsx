@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import MultiSelect from "../../components/MultiSelect";
+import MultiSelect from "../../components/Inputs/MultiSelect";
 import { router, usePage, useForm } from "@inertiajs/react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {

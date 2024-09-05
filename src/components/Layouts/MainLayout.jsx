@@ -4,7 +4,7 @@ import { usePage } from "@inertiajs/react";
 import Navigation from "../Navigation";
 import { Container } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SnackbarProvider from "../SnackbarProvider";
+import SnackbarProvider from "./SnackbarProvider";
 import InertiaModals from "../InertiaModals";
 import GlobalStyles from '@mui/material/GlobalStyles';
 

@@ -10,10 +10,10 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-import MainLayout from "../../components/layouts/MainLayout";
+import MainLayout from "../../components/Layouts/MainLayout";
 import { useForm, Link as InertiaLink } from "@inertiajs/react";
 import { styled } from '@mui/material/styles';
-import InputHelpAdornment from "../../components/InputHelpAdornment";
+import InputHelpAdornment from "../../components/Inputs/InputHelpAdornment";
 
 const StyledForm = styled('form')(() => ({
   '& .MuiFormControl-root, & .MuiButton-root': {

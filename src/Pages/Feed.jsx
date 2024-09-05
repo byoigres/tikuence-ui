@@ -1,6 +1,6 @@
 import React from "react";
 import { usePage, Link } from "@inertiajs/react";
-import MainLayout from "../components/layouts/MainLayout";
+import MainLayout from "../components/Layouts/MainLayout";
 
 const PageFeed = () => {
   const { props } = usePage();

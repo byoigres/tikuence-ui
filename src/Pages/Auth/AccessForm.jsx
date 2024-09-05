@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import { Link as InertiaLink } from "@inertiajs/react";
-import MainLayout from "../../components/layouts/MainLayout";
+import MainLayout from "../../components/Layouts/MainLayout";
 import { styled } from '@mui/material/styles';
 import GoogleIcon from '@mui/icons-material/Google';
 
