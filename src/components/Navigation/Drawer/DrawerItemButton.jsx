@@ -9,7 +9,6 @@ const DrawerItemButton = ({ icon, text, href, onClick, color = "primary", varian
       sx={(theme) => ({
         paddingLeft: theme.spacing(2),
         paddingRight: theme.spacing(2),
-        // paddingTop: theme.spacing(0.5),
         paddingBottom: theme.spacing(1),
       })}
     >
@@ -18,7 +17,6 @@ const DrawerItemButton = ({ icon, text, href, onClick, color = "primary", varian
         color={color}
         variant={variant}
         fullWidth
-        // size="large"
         href={href}
         LinkComponent={InertiaLink}
         onClick={onClick}

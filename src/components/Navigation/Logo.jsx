@@ -23,7 +23,6 @@ const sx = {
   }),
 }
 
-
 const Logo = ({ size = 'default', disableGutters = false, sx: typographySX = {} }) => {
   return (
     <StyledTypography size={size} disableGutters={disableGutters} sx={typographySX}>
