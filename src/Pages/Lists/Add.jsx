@@ -23,7 +23,7 @@ const Add = () => {
     props: {
       modal: {
         categories,
-        languages
+        languages,
       }
     }
   } = usePage();
@@ -31,6 +31,7 @@ const Add = () => {
   const { data, setData, post, processing, errors } = useForm({
     title: '',
     categories: [],
+    languages: [],
   });
 
   const handleClose = () => {
@@ -109,6 +110,7 @@ const Add = () => {
           placeholder="Type a category name"
           maxSelected={3}
           options={categories}
+          keyPropertyName="name"
           labelPropertyName="description"
           error={!!errors.categories}
           helperText={errors.categories}
@@ -129,7 +131,16 @@ const Add = () => {
           placeholder="Type a language name"
           maxSelected={2}
           options={languages}
+          keyPropertyName="code"
           labelPropertyName="name"
+          error={!!errors.languages}
+          helperText={errors.languages}
+          onValueChage={(values) => {
+            setData((v) => ({
+              ...v,
+              "languages": values.map((x) => x.code),
+            }));
+          }}
         />
         <DialogContentText>
           <Typography variant="caption">
