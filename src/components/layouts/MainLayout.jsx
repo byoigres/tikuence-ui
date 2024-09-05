@@ -51,7 +51,6 @@ const MainLayout = ({ children }) => {
       modal = false
     },
   } = usePage();
-  console.log({ props });
 
   return (
     <>
