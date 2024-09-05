@@ -51,13 +51,15 @@ const MainLayout = ({ children }) => {
       modal = false
     },
   } = usePage();
+  console.log({ props });
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {inputGlobalStyles}
         <SnackbarProvider flash={flash}>
-          <Navigation isAuthenticated={isAuthenticated} profile={profile} />
+          <Navigation />
           <Container sx={sx.container} component="main" disableGutters maxWidth="lg">
             {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) {

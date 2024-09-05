@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link as InertiaLink, router } from '@inertiajs/react';
+import { usePage, Link as InertiaLink, router } from '@inertiajs/react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
@@ -26,10 +26,14 @@ const sx = {
   }),
 };
 
-const DrawerMenu = ({ open, onClose, isAuthenticated, profile }) => {
+const DrawerMenu = ({ open, onClose }) => {
+  const {
+    props: {
+      auth: { isAuthenticated, profile }
+    },
+  } = usePage();
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.up('md'));
-  useEffect(() => { }, [open]);
 
   return (
     <Drawer

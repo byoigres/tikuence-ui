@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { Link as InertiaLink } from "@inertiajs/react";
+import { usePage, Link as InertiaLink } from "@inertiajs/react";
 import Logo from "./Logo";
 import UserAvatar from "./UserAvatar";
 
@@ -25,7 +25,12 @@ const sx = {
   }),
 }
 
-const NavBar = ({ isAuthenticated, profile, handleDrawerToggle }) => {
+const NavBar = ({ handleDrawerToggle }) => {
+  const {
+    props: {
+      auth: { isAuthenticated, profile }
+    },
+  } = usePage();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleUserMenuClick = (event) => {
     setAnchorEl(event.currentTarget);

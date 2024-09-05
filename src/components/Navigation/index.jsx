@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import DrawerMenu from './DrawerMenu';
 
-const Navigation = ({ isAuthenticated, profile }) => {
+const Navigation = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -11,8 +11,11 @@ const Navigation = ({ isAuthenticated, profile }) => {
 
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} profile={profile} handleDrawerToggle={handleDrawerToggle} />
-      <DrawerMenu open={isDrawerOpen} isAuthenticated={isAuthenticated} profile={profile} onClose={() => { setIsDrawerOpen(false); }} />
+      <Navbar handleDrawerToggle={handleDrawerToggle} />
+      <DrawerMenu
+        open={isDrawerOpen}
+        onClose={() => { setIsDrawerOpen(false); }}
+      />
     </>
   );
 }
