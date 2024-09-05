@@ -10,14 +10,9 @@ const UserDropdowMenu = ({ anchorEl, handleUserMenuClose }) => {
       auth: { isAuthenticated, profile },
     },
   } = usePage();
-  return (
-    <Menu
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleUserMenuClose}
-    >
-      {isAuthenticated && [
+
+  const menuItems = isAuthenticated
+    ? [
         <MenuItem
           key="menu-item-user-profile"
           onClick={handleUserMenuClose}
@@ -29,14 +24,14 @@ const UserDropdowMenu = ({ anchorEl, handleUserMenuClose }) => {
         <MenuItem key="menu-item-logout" component="a" href="/auth/logout">
           <Typography color="secondary">Logout</Typography>
         </MenuItem>,
-      ]}
-      {!isAuthenticated && [
+      ]
+    : [
         <MenuItem
           key="menu-item-auth-login"
           component={InertiaLink}
           href="/auth/signin"
         >
-          Sing in
+          Sign in
         </MenuItem>,
         <MenuItem
           key="menu-item-auth-register"
@@ -44,8 +39,17 @@ const UserDropdowMenu = ({ anchorEl, handleUserMenuClose }) => {
           href="/auth/signup"
         >
           <Typography color="secondary">Create account</Typography>
-        </MenuItem>
-      ]}
+        </MenuItem>,
+      ];
+
+  return (
+    <Menu
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleUserMenuClose}
+    >
+      {menuItems}
     </Menu>
   );
 };
