@@ -21,9 +21,9 @@ const UserAvatarMenu = () => {
   };
 
   const avatar = isAuthenticated ? (
-    <UserAvatar image={profile.picture} letter={profile.name[0]} size="small" />
+    <UserAvatar />
   ) : (
-    <AccountCircleIcon />
+    <AccountCircleIcon fontSize="large" />
   );
 
   return (

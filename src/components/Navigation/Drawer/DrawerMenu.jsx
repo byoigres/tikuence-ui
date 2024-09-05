@@ -16,9 +16,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 // Project imports
-import Logo from './Logo';
+import Logo from '../Logo';
 import DrawerItemButton from './DrawerItemButton';
 import DrawerDivider from './DrawerDivider';
+import UserAvatar from '../UserAvatar';
 
 const sx = {
   drawerPaper: (theme) => ({
@@ -106,7 +107,7 @@ const DrawerMenu = ({ open, onClose }) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={profile.picture} />
+                <UserAvatar />
               </ListItemAvatar>
               <ListItemText
                 primary={(

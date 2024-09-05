@@ -1,20 +1,28 @@
 import React from 'react';
 import Avatar from "@mui/material/Avatar";
-import { styled } from "@mui/material/styles";
+import { usePage } from '@inertiajs/react';
 
-const StyledAvatar = styled(Avatar)(({ theme, size }) => ({
-  width: theme.spacing(size === 'default' ? 5 : 3),
-  height: theme.spacing(size === 'default' ? 5 : 3),
-}));
+const UserAvatar = () => {
+  const {
+    props: {
+      auth: {
+        isAuthenticated,
+        profile: {
+          name: [letter],
+          picture
+        },
+      },
+    },
+  } = usePage();
 
-const UserAvatar = ({ image, letter, size = 'default' }) => {
-  return(
-    <StyledAvatar
-      src={image}
-      size={size}
-    >
-      {letter.toUpperCase()}
-    </StyledAvatar>
+  return (
+    isAuthenticated ? (
+      <Avatar src={picture}>
+        {letter.toUpperCase()}
+      </Avatar >
+    ) : (
+      <AccountCircleIcon fontSize="large" />
+    )
   );
 };
 
