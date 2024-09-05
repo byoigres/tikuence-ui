@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
@@ -10,8 +9,12 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { usePage, Link as InertiaLink } from "@inertiajs/react";
-import Logo from "./Logo";
-import UserAvatar from "./UserAvatar";
+
+// Project imports
+import Logo from "../Logo";
+import UserAvatar from "../UserAvatar";
+import HamburgerMenu from "./HamburgerMenu";
+
 
 const sx = {
   nav: {
@@ -43,9 +46,7 @@ const NavBar = ({ handleDrawerToggle }) => {
     <Box component="nav" sx={sx.nav}>
       <AppBar position="fixed" sx={sx.appBar}>
         <Toolbar>
-          <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle}>
-            <MenuIcon />
-          </IconButton>
+          <HamburgerMenu handleDrawerToggle={handleDrawerToggle} />
           <Logo size={"small"} disableGutters sx={{ flexGrow: 1 }} />
           <Tooltip title={isAuthenticated ? profile.name : "Login"}>
             <IconButton
