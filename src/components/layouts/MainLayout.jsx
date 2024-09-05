@@ -46,7 +46,6 @@ const sx = {
 const MainLayout = ({ children }) => {
   const {
     props: {
-      auth: { isAuthenticated, profile },
       flash,
       modal = false
     },
