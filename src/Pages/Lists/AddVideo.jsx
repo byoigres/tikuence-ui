@@ -30,8 +30,6 @@ const AddVideo = () => {
     videoUrl: '',
   });
 
-  console.log({ processing })
-
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -48,7 +46,7 @@ const AddVideo = () => {
     e.stopPropagation();
     post(`/lists/${listId}/videos`, {
       preserveState: true,
-      only: ['flash', 'errors'],
+      // only: ['flash', 'errors'],
     });
   };
 
@@ -60,7 +58,7 @@ const AddVideo = () => {
       TransitionComponent={Transition}
       onTransitionExited={() => {
         if (!isOpen) {
-          router.visit('/');
+          router.visit(`/lists/${listId}/details`);
         }
       }}
       closeAfterTransition
