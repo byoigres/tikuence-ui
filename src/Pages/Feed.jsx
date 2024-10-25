@@ -16,6 +16,12 @@ const PageFeed = ({ lists }) => {
         <div key={list.id}>
           <h2>{list.title}</h2>
           <Link href={`/lists/${list.id}/details`}>View list</Link>
+          <img
+            src={list.thumbnails.name}
+            srcSet={list.thumbnails.sizes}
+            sizes="100vw"
+            alt={list.title}
+          />
         </div>
       ))}
     </>

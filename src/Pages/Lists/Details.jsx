@@ -39,7 +39,15 @@ const Details = ({ id, title, videos }) => {
         </Typography>
       )}
       {videos && videos.length > 0 && videos.map((video) => (
-        <h2 key={video.id}>{video.title}</h2>
+        <React.Fragment key={video.id}>
+          <h2>{video.title}</h2>
+          <img
+            src={video.thumbnails.name}
+            srcSet={video.thumbnails.sizes}
+            sizes="100vw"
+            alt={video.title}
+          />
+        </React.Fragment>
       ))}
     </div>
   );
