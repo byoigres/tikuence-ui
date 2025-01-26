@@ -8,7 +8,6 @@ const InertiaModals = ({ modal }) => (
   <Suspense fallback={<div>Loading...</div>}>
     {modal && modal.modalName === 'add-list' && <AddNewList />}
     {modal && modal.modalName === 'add-video' && <AddVideo />}
-    {modal && modal.modalName === 'view-list' && <ViewList />}
   </Suspense>
 );
 
